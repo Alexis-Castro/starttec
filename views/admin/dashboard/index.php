@@ -1,0 +1,1 @@
+<h1 class="text-3xl"><?php echo $titulo ?></h1>
