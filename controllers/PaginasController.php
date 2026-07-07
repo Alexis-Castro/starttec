@@ -37,6 +37,8 @@ class PaginasController
       $empresa = Empresa::all();
       $personal = Personal::get(6);
 
+      // debuguear($personal);
+
       foreach ($personal as $persona) {
          $persona->categoria_id = Cargo::find($persona->cargo_id);
       }

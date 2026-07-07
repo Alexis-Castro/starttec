@@ -12,5 +12,7 @@ $dotenv->safeLoad();
 require 'funciones.php';
 require 'database.php';
 
+session_start();
+
 // Conectarnos a la base de datos
 ActiveRecord::setDB($pdo);

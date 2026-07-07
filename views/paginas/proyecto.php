@@ -46,6 +46,7 @@
    <div class="lg:max-w-6xl xl:max-w-7xl mx-auto w-full relative">
       <div class="pswp-gallery grid grid-cols-[repeat(auto-fill,minmax(min(100%,280px),1fr))] lg:grid-cols-3 place-content-center my-6 gap-x-4 gap-y-6 xl:gap-x-4" id="gallery">
          <?php foreach ($galeria as $imagenes) { ?>
+
             <a href="/img/proyectos/galeria/<?php echo $imagenes->imagen ?>.webp" data-pswp-width="1920" data-pswp-height="1080" class="column is-half-tablet is-4-desktop">
                <figure class="flex items-center justify-center">
                   <img class="object-cover transition duration-200 hover:scale-110" src="/img/proyectos/galeria/<?php echo $imagenes->imagen ?>.webp" alt="proyecto">

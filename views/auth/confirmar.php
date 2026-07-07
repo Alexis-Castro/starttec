@@ -18,7 +18,7 @@
             <?php
             require_once __DIR__ . '/../templates/alertas.php';
             ?>
-            <?php if (isset($alertas['from-green-400 to-green-500'])) { ?>
+            <?php if (isset($alertas['exito'])) { ?>
                <div class="text-sm font-light text-gray-400 text-center">
                   <a href="/auth/login" class="font-medium hover:underline text-azul text-lg"> Inicia sesión</a>
                </div>

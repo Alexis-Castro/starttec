@@ -85,7 +85,7 @@
                            <span class="hidden md:block">Editar</span>
                         </a>
 
-                        <form method="POST" class="btn-eliminar">
+                        <form method="POST" class="btn-eliminar" action="/admin/proyectos/eliminar">
                            <input type="hidden" name="id" value="<?php echo $proyecto->id; ?>">
                            <button type="submit" class="btn btn-danger" title="Eliminar">
                               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-100" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

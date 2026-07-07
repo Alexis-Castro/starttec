@@ -88,7 +88,30 @@ class CategoriasController
       // ]);
    }
 
-   public static function editar()
+    public static function eliminar()
+   {
+      if (!is_admin()) {
+         header('Location: /auth/login');
+      }
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         $id = $_POST['id'];
+         $categoria = Categoria::find($id);
+
+         if (!isset($categoria)) {
+            echo json_encode(["resultado" => false]);
+            return;
+         }
+
+         $resultado = $categoria->eliminar();
+
+         echo json_encode([
+            'resultado' => $resultado,
+         ]);
+      }
+   }
+
+    public static function editar()
    {
       if (!is_admin()) {
          header('Location: /auth/login');

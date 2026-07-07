@@ -163,25 +163,10 @@ class ActiveRecord
         return $resultado;
     }
 
-    public static function obtenerImagenesDeProyecto($proyectoId)
-    {
-        $query = "SELECT i.* FROM proyectos p
-              JOIN imagenes_proyecto i ON p.id = i.proyecto_id
-              WHERE p.id = :proyecto_id";
-
-        $params = [
-            ':proyecto_id' => $proyectoId
-        ];
-
-        $resultado = self::consultarSQL($query, $params);
-
-        return $resultado;
-    }
-
     // Busqueda Where con Columna
     public static function where($columna, $valor)
     {
-        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = :valor";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = :valor";
         $params = [':valor' => $valor];
         $resultado = self::consultarSQL($query, $params);
         return array_shift($resultado);
@@ -221,7 +206,7 @@ class ActiveRecord
         $params = [];
 
         if ($columna) {
-            $query .= " WHERE ${columna} = :valor";
+            $query .= " WHERE {$columna} = :valor";
             $params[':valor'] = $valor;
         }
 

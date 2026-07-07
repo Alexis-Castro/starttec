@@ -29,7 +29,7 @@
 
             </button>
             <!-- Hamburger Toggle BTN -->
-            <a class="flex items-center text-2xl font-semibold text-white flex-shrink-0" href="index.html">
+            <a class="flex items-center text-2xl font-semibold text-white flex-shrink-0" href="/">
                <img src="/build/img/logo-icon.webp" class="w-8 h-8 mr-2" alt="Logo">
                Start Tec
             </a>

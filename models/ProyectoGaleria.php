@@ -18,4 +18,19 @@ class ProyectoGaleria extends ActiveRecord
         $this->imagen = $args['imagen'] ?? '';
         $this->proyecto_id = $args['proyecto_id'] ?? '';
     }
+
+    public static function obtenerImagenesDeProyecto($proyectoId)
+    {
+        $query = "SELECT i.* FROM proyectos p
+              JOIN imagenes_proyecto i ON p.id = i.proyecto_id
+              WHERE p.id = :proyecto_id";
+
+        $params = [
+            ':proyecto_id' => $proyectoId
+        ];
+
+        $resultado = self::consultarSQL($query, $params);
+
+        return $resultado;
+    }
 }

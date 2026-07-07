@@ -3,7 +3,16 @@
       <?php echo $titulo ?>
    </h2>
 
-
+   <div>
+      <a class="btn btn-primary gap-1" href="/admin/usuarios/crear">
+         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 5l0 14"></path>
+            <path d="M5 12l14 0"></path>
+         </svg>
+         Añadir usuario
+      </a>
+   </div>
 </div>
 
 <div class="relative overflow-x-auto shadow-lg sm:rounded-lg mb-8" id="listado-usuarios">
@@ -52,7 +61,7 @@
                            <span class="hidden md:block">Editar</span>
                         </a>
 
-                        <form method="POST" class="btn-eliminar">
+                        <form method="POST" class="btn-eliminar" action="/admin/usuarios/eliminar">
                            <input type="hidden" name="id" value="<?php echo $usuario->id; ?>">
                            <button type="submit" class="btn btn-danger" title="Eliminar">
                               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-100" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

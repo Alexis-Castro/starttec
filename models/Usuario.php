@@ -7,6 +7,16 @@ class Usuario extends ActiveRecord
     protected static $tabla = 'usuarios';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'confirmado', 'token', 'admin'];
 
+    public ?int $id;
+    public string $nombre;
+    public string $apellido;
+    public string $email;
+    public string $password;
+    public string $password2;
+    public int $confirmado;
+    public string $token;
+    public int $admin;
+
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;

@@ -29,8 +29,6 @@ class AuthController
                     // El Usuario existe
                     if (password_verify($_POST['password'], $usuario->password)) {
 
-                        // Iniciar la sesión
-                        session_start();
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre;
                         $_SESSION['apellido'] = $usuario->apellido;
@@ -40,8 +38,6 @@ class AuthController
                         // Redirección
                         if ($usuario->admin) {
                             header('Location: /admin/dashboard');
-                        } else {
-                            header('Location: /auth/finalizar-registro');
                         }
                     } else {
                         Usuario::setAlerta('error', 'Contraseña incorrecta');
@@ -62,7 +58,6 @@ class AuthController
     public static function logout()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            session_start();
             $_SESSION = [];
             header('Location: /auth/login');
         }
@@ -257,7 +252,7 @@ class AuthController
 
 
         $router->render('auth/confirmar', [
-            'titulo' => 'Confirma tu cuenta DevWebcamp',
+            'titulo' => 'Confirma tu cuenta StartTec',
             'alertas' => Usuario::getAlertas()
         ]);
     }

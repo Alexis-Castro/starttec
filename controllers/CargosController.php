@@ -88,7 +88,30 @@ class CargosController
       // ]);
    }
 
-   public static function editar()
+    public static function eliminar()
+   {
+      if (!is_admin()) {
+         header('Location: /auth/login');
+      }
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         $id = $_POST['id'];
+         $cargo = Cargo::find($id);
+
+         if (!isset($cargo)) {
+            echo json_encode(["resultado" => false]);
+            return;
+         }
+
+         $resultado = $cargo->eliminar();
+
+         echo json_encode([
+            'resultado' => $resultado,
+         ]);
+      }
+   }
+
+    public static function editar()
    {
       if (!is_admin()) {
          header('Location: /auth/login');

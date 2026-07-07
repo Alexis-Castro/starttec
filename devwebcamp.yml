@@ -1,0 +1,27 @@
+features:
+  - php 8.3
+  - mysql
+  - ssl
+  - ssl always
+
+root: public
+
+nginx:
+  fastcgi: 'on'
+  locations:
+    - match: /
+      try_files: '$uri $uri/ /index.php$is_args$args'
+    - match: '~ \.[^\/]+(?<!\.php)$'
+      try_files: '$uri =404'
+
+commands:
+  - 'echo "DB_TYPE=mysql" > includes/.env'
+  - 'echo "DB_HOST=localhost" >> includes/.env'
+  - 'echo "DB_USER=${USERNAME}" >> includes/.env'
+  - 'echo "DB_PASS=${PASSWORD}" >> includes/.env'
+  - 'echo "DB_NAME=${DATABASE}" >> includes/.env'
+  - 'echo "" >> includes/.env'
+  - 'echo "HOST=https://${DOMAIN}" >> includes/.env'
+  - 'echo "" >> includes/.env'
+  - 'echo "# Set EMAIL_HOST, EMAIL_USER, EMAIL_PASS, and EMAIL_PORT manually via Brevo SMTP" >> includes/.env'
+  - composer install --no-dev --optimize-autoloader

@@ -73,7 +73,7 @@
 
       <div>
          <label for="proyectos" class="block mb-2 text-gray-100">Nro de proyectos</label>
-         <input type="text" id="proyectos" class="rounded-lg border-transparent flex-1 appearance-none border w-full py-2.5 px-3 bg-gray-700 transition text-gray-300 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-azul-claro focus:border-transparent" placeholder="Ingresar proyectos" name="nro_proyectos" value="<?php echo $empresa->nro_clientes ?? ''; ?>">
+         <input type="text" id="proyectos" class="rounded-lg border-transparent flex-1 appearance-none border w-full py-2.5 px-3 bg-gray-700 transition text-gray-300 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-azul-claro focus:border-transparent" placeholder="Ingresar proyectos" name="nro_proyectos" value="<?php echo $empresa->nro_proyectos ?? ''; ?>">
       </div>
 
       <div>

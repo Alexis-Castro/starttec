@@ -49,7 +49,7 @@
                   <picture>
                      <source srcset="<?php echo $_ENV['HOST'] . '/img/proyectos/imagen_previa/' . $proyecto->imagen_previa; ?>.webp" type="image/webp">
                      <source srcset="<?php echo $_ENV['HOST'] . '/img/proyectos/imagen_previa/' . $proyecto->imagen_previa; ?>.png" type="image/png">
-                     <img src="<?php echo $_ENV['HOST'] . '/img/proyectos/imagen_previa/' . $proyecto->imagen_previa; ?>.png" alt="Imagen Proyecto">
+                     <img src="<?php echo $_ENV['HOST'] . '/img/proyectos/imagen_previa/' . $proyecto->imagen_previa; ?>.png" alt="Imagen Proyecto" class="max-w-xs">
                   </picture>
                </div>
 

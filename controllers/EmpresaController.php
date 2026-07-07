@@ -90,7 +90,7 @@ class EmpresaController
             }
 
             // Verificar que el archivo es un video
-            $videoType = pathinfo($carpeta_videos . $_FILES['video_inicio']['name'], PATHINFO_EXTENSION);
+            $videoType = pathinfo($_FILES['video_inicio']['name'], PATHINFO_EXTENSION);
 
             if ($videoType != "mp4" && $videoType != "avi" && $videoType != "mov" && $videoType != "mpeg") {
                echo "Solo se permiten archivos de video mp4, avi o mov.";
@@ -209,7 +209,7 @@ class EmpresaController
             }
 
             // Verificar que el archivo es un video
-            $videoType = pathinfo($carpeta_videos . $_FILES['video_inicio']['name'], PATHINFO_EXTENSION);
+            $videoType = pathinfo($_FILES['video_inicio']['name'], PATHINFO_EXTENSION);
 
 
             if ($videoType != "mp4" && $videoType != "avi" && $videoType != "mov" && $videoType != "mpeg") {

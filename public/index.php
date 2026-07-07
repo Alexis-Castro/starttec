@@ -49,9 +49,15 @@ $router->get('/admin/dashboard', [DashboardController::class, 'index']);
 $router->get('/admin/contactos', [ContactosController::class, 'index']);
 $router->get('/admin/cotizaciones', [CotizacionesController::class, 'index']);
 $router->get('/admin/usuarios', [UsuariosController::class, 'index']);
+$router->get('/admin/usuarios/crear', [UsuariosController::class, 'crear']);
+$router->post('/admin/usuarios/crear', [UsuariosController::class, 'crear']);
+$router->get('/admin/usuarios/editar', [UsuariosController::class, 'editar']);
+$router->post('/admin/usuarios/editar', [UsuariosController::class, 'editar']);
+$router->post('/admin/usuarios/eliminar', [UsuariosController::class, 'eliminar']);
 
 // EMPRESA
 $router->get('/admin/empresa', [EmpresaController::class, 'index']);
+$router->get('/admin/empresa/crear', [EmpresaController::class, 'crear']);
 $router->post('/admin/empresa/crear', [EmpresaController::class, 'crear']);
 $router->get('/admin/empresa/editar', [EmpresaController::class, 'editar']);
 $router->post('/admin/empresa/editar', [EmpresaController::class, 'editar']);
@@ -76,6 +82,7 @@ $router->post('/admin/personal/eliminar', [PersonalController::class, 'eliminar'
 $router->get('/admin/cargos', [CargosController::class, 'index']);
 $router->post('/admin/cargos/crear', [CargosController::class, 'crear']);
 $router->post('/admin/cargos/editar', [CargosController::class, 'editar']);
+$router->post('/admin/cargos/eliminar', [CargosController::class, 'eliminar']);
 $router->get('/api/cargo', [APICargos::class, 'cargo']);
 
 // PROYECTOS
@@ -85,6 +92,7 @@ $router->post('/admin/proyectos/crear', [ProyectosController::class, 'crear']);
 $router->get('/admin/proyectos/editar', [ProyectosController::class, 'editar']);
 $router->post('/admin/proyectos/editar', [ProyectosController::class, 'editar']);
 $router->post('/admin/proyecto/image/eliminar', [ProyectosController::class, 'eliminarImg']);
+$router->post('/admin/proyectos/eliminar', [ProyectosController::class, 'eliminar']);
 $router->get('/api/proyectos', [APIProyectos::class, 'index']);
 $router->get('/api/proyectos/categoria', [APIProyectos::class, 'categoria']);
 $router->get('/api/proyecto', [APIProyectos::class, 'proyecto']);
@@ -93,7 +101,7 @@ $router->get('/api/galeria/proyecto', [APIGaleria::class, 'galeria']);
 $router->get('/admin/proyectos/categorias', [CategoriasController::class, 'index']);
 $router->post('/admin/categorias/crear', [CategoriasController::class, 'crear']);
 $router->post('/admin/categorias/editar', [CategoriasController::class, 'editar']);
-// $router->post('/admin/categorias/eliminar', [CategoriasController::class, 'eliminar']);
+$router->post('/admin/categorias/eliminar', [CategoriasController::class, 'eliminar']);
 $router->get('/api/categoria', [APICategorias::class, 'categoria']);
 
 
