@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Classes\Email;
+use Model\Servicio;
 use Model\Usuario;
 use MVC\Router;
 
@@ -34,11 +35,10 @@ class AuthController
                         $_SESSION['apellido'] = $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['admin'] = $usuario->admin ?? null;
+                        $_SESSION['login'] = true;
 
                         // Redirección
-                        if ($usuario->admin) {
-                            header('Location: /admin/dashboard');
-                        }
+                        header('Location: /admin/dashboard');
                     } else {
                         Usuario::setAlerta('error', 'Contraseña incorrecta');
                     }
@@ -46,21 +46,28 @@ class AuthController
             }
         }
 
+        if (isset($_SESSION['admin'])) {
+            header('Location: /admin/dashboard');
+        }
+
+        // debuguear($_SESSION);
+
         $alertas = Usuario::getAlertas();
+        $servicios = Servicio::all();
 
         // Render a la vista 
         $router->render('auth/login', [
             'titulo' => 'Iniciar Sesión',
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'servicios' => $servicios
         ]);
     }
 
     public static function logout()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $_SESSION = [];
-            header('Location: /auth/login');
-        }
+        session_start();
+        $_SESSION = [];
+        header('Location: /auth/login');
     }
 
     public static function registro(Router $router)
@@ -105,11 +112,14 @@ class AuthController
             }
         }
 
+        $servicios = Servicio::all();
+
         // Render a la vista
         $router->render('auth/registro', [
             'titulo' => 'Crea tu cuenta en StartTec',
             'usuario' => $usuario,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'servicios' => $servicios
         ]);
     }
 
@@ -156,10 +166,13 @@ class AuthController
             }
         }
 
+        $servicios = Servicio::all();
+
         // Muestra la vista
         $router->render('auth/olvide', [
             'titulo' => 'Olvidé mi Contraseña',
-            'alertas' => Usuario::getAlertas()
+            'alertas' => Usuario::getAlertas(),
+            'servicios' => $servicios
         ]);
     }
 
@@ -207,12 +220,14 @@ class AuthController
         }
 
         $alertas = Usuario::getAlertas();
+        $servicios = Servicio::all();
 
         // Muestra la vista
         $router->render('auth/reestablecer', [
             'titulo' => 'Coloca tu nueva contraseña',
             'alertas' => $alertas,
-            'token_valido' => $token_valido
+            'token_valido' => $token_valido,
+            'servicios' => $servicios
         ]);
     }
 
@@ -249,11 +264,12 @@ class AuthController
             Usuario::setAlerta('exito', 'Cuenta Comprobada Exitosamente');
         }
 
-
+        $servicios = Servicio::all();
 
         $router->render('auth/confirmar', [
             'titulo' => 'Confirma tu cuenta StartTec',
-            'alertas' => Usuario::getAlertas()
+            'alertas' => Usuario::getAlertas(),
+            'servicios' => $servicios
         ]);
     }
 }
