@@ -5,11 +5,18 @@ namespace Controllers;
 use Classes\Paginacion;
 use Model\Personal;
 use MVC\Router;
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Format;
 use Model\Cargo;
 
 class PersonalController
 {
+
+   private static function imageManager(): ImageManager
+   {
+      return ImageManager::usingDriver(Driver::class);
+   }
    public static function index(Router $router)
    {
       if (!is_admin()) {
@@ -61,9 +68,9 @@ class PersonalController
       $personal = new Personal;
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-         if (!is_admin()) {
-            header('Location: /auth/login');
-         }
+
+         $manager = self::imageManager();
+
          // Leer imagen
          if (!empty($_FILES['imagen']['tmp_name'])) {
 
@@ -74,13 +81,11 @@ class PersonalController
                mkdir($carpeta_imagenes, 0755, true);
             }
 
-            $imagen_png = Image::make($_FILES['imagen']['tmp_name'])->resize(800, null, function ($constraint) {
-               $constraint->aspectRatio();
-            })->encode('png', 80);
+            $imagen_base = $manager->decode($_FILES['imagen']['tmp_name'])
+               ->scale(width: 800);
 
-            $imagen_webp = Image::make($_FILES['imagen']['tmp_name'])->resize(800, null, function ($constraint) {
-               $constraint->aspectRatio();
-            })->encode('webp', 80);
+            $imagen_png  = $imagen_base->encodeUsingFormat(Format::PNG);
+            $imagen_webp = $imagen_base->encodeUsingFormat(Format::WEBP, quality: 80);
 
             $nombre_imagen = md5(uniqid(rand(), true));
 
@@ -98,14 +103,17 @@ class PersonalController
          // Guardar el registro
          if (empty($alertas)) {
 
-            // Guardar las imagenes
-            $imagen_png->save($carpeta_imagenes . '/' . $nombre_imagen . ".png");
-            $imagen_webp->save($carpeta_imagenes . '/' . $nombre_imagen . ".webp");
+            if (isset($imagen_png, $imagen_webp)) {
+               // Guardar las imagenes
+               $imagen_png->save($carpeta_imagenes . '/' . $nombre_imagen . ".png");
+               $imagen_webp->save($carpeta_imagenes . '/' . $nombre_imagen . ".webp");
+            }
 
             // Guardar en la BD
             $resultado = $personal->guardar();
 
             if ($resultado) {
+               header('Content-type: application/json');
                echo json_encode([
                   'resultado' => $resultado,
                ]);
@@ -113,6 +121,7 @@ class PersonalController
                echo json_encode(["resultado" => false]);
             }
          } else {
+            header('Content-type: application/json');
             echo json_encode($alertas['error']);
          }
 
@@ -158,28 +167,34 @@ class PersonalController
          if (!is_admin()) {
             header('Location: /auth/login');
          }
-         // Leer imagen
 
+         $manager = self::imageManager();
+
+         // Leer imagen
          if (!empty($_FILES['imagen']['tmp_name'])) {
 
             $carpeta_imagenes = '../public/img/personal';
 
             // Eliminar la imagen previa
-            unlink($carpeta_imagenes . '/' . $personal->imagen_actual . ".png");
-            unlink($carpeta_imagenes . '/' . $personal->imagen_actual . ".webp");
+            if ($personal->imagen_actual) {
+               if (file_exists($carpeta_imagenes . '/' . $personal->imagen_actual . '.png')) {
+                  unlink($carpeta_imagenes . '/' . $personal->imagen_actual . '.png');
+               }
+               if (file_exists($carpeta_imagenes . '/' . $personal->imagen_actual . '.webp')) {
+                  unlink($carpeta_imagenes . '/' . $personal->imagen_actual . '.webp');
+               }
+            }
 
             // Crear la carpeta si no existe
             if (!is_dir($carpeta_imagenes)) {
                mkdir($carpeta_imagenes, 0755, true);
             }
 
-            $imagen_png = Image::make($_FILES['imagen']['tmp_name'])->resize(800, null, function ($constraint) {
-               $constraint->aspectRatio();
-            })->encode('png', 80);
+            $imagen_base = $manager->decode($_FILES['imagen']['tmp_name'])
+               ->scale(width: 800);
 
-            $imagen_webp = Image::make($_FILES['imagen']['tmp_name'])->resize(800, null, function ($constraint) {
-               $constraint->aspectRatio();
-            })->encode('webp', 80);
+            $imagen_png  = $imagen_base->encodeUsingFormat(Format::PNG);
+            $imagen_webp = $imagen_base->encodeUsingFormat(Format::WEBP, quality: 80);
 
             $nombre_imagen = md5(uniqid(rand(), true));
 
@@ -198,13 +213,14 @@ class PersonalController
          $alertas = $personal->validar();
 
          if (empty($alertas)) {
-            if (isset($nombre_imagen)) {
+            if (isset($nombre_imagen, $imagen_png, $imagen_webp)) {
                $imagen_png->save($carpeta_imagenes . '/' . $nombre_imagen . ".png");
                $imagen_webp->save($carpeta_imagenes . '/' . $nombre_imagen . ".webp");
             }
             $resultado = $personal->guardar();
 
             if ($resultado) {
+               header('Content-type: application/json');
                echo json_encode([
                   'resultado' => $resultado,
                ]);
@@ -212,6 +228,7 @@ class PersonalController
                echo json_encode(["resultado" => false]);
             }
          } else {
+            header('Content-type: application/json');
             echo json_encode($alertas['error']);
          }
 
