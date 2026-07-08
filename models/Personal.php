@@ -5,7 +5,7 @@ namespace Model;
 class Personal extends ActiveRecord
 {
    protected static $tabla = 'personal';
-   protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'telefono', 'imagen', 'cargo_id', 'categoria_id', 'redes'];
+   protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'telefono', 'imagen', 'cargo_id', 'redes'];
 
    public $id;
    public $nombre;
@@ -14,7 +14,6 @@ class Personal extends ActiveRecord
    public $telefono;
    public $imagen;
    public $cargo_id;
-   public $categoria_id;
    public $redes;
    public $imagen_actual; // Agregamos la propiedad imagen_actual
 
@@ -28,7 +27,6 @@ class Personal extends ActiveRecord
       $this->imagen = $args['imagen'] ?? '';
       // $this->imagen_actual = $args['imagen'] ?? '';
       $this->cargo_id = $args['cargo_id'] ?? '';
-      $this->categoria_id = $args['categoria_id'] ?? '';
       $this->redes = $args['redes'] ?? '';
    }
 
