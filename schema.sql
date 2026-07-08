@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
 -- ============================================
 CREATE TABLE IF NOT EXISTS categorias (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
+    nombre VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB;
 
 -- ============================================
@@ -31,7 +32,8 @@ CREATE TABLE IF NOT EXISTS categorias (
 -- ============================================
 CREATE TABLE IF NOT EXISTS cargos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
+    nombre VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB;
 
 -- ============================================
@@ -45,6 +47,7 @@ CREATE TABLE IF NOT EXISTS proyectos (
     imagen_previa VARCHAR(255) NOT NULL,
     slug VARCHAR(255) NOT NULL UNIQUE,
     categoria_id INT UNSIGNED NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
@@ -55,6 +58,7 @@ CREATE TABLE IF NOT EXISTS imagenes_proyecto (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     imagen VARCHAR(255) NOT NULL,
     proyecto_id INT UNSIGNED NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (proyecto_id) REFERENCES proyectos(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
@@ -81,7 +85,8 @@ CREATE TABLE IF NOT EXISTS servicios (
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT NOT NULL,
     imagen VARCHAR(255) NOT NULL,
-    slug VARCHAR(255) NOT NULL UNIQUE
+    slug VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB;
 
 -- ============================================
