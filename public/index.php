@@ -26,7 +26,7 @@ $router = new Router();
 // Login
 $router->get('/auth/login', [AuthController::class, 'login']);
 $router->post('/auth/login', [AuthController::class, 'login']);
-$router->post('/auth/logout', [AuthController::class, 'logout']);
+$router->get('/auth/logout', [AuthController::class, 'logout']);
 
 // Crear Cuenta
 $router->get('/auth/registro', [AuthController::class, 'registro']);
