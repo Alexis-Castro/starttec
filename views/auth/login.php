@@ -29,9 +29,9 @@
                   <a href="/auth/olvide" class="text-sm font-medium hover:underline text-azul-claro">¿Olvidaste tu contraseña?</a>
                </div>
                <button type="submit" class="w-full text-white focus:ring-2 focus:outline-none font-medium rounded-lg px-5 py-2.5 text-center bg-azul hover:bg-blue-700 transition ">Iniciar Sesión</button>
-               <!-- <p class="text-sm font-light text-gray-400">
-                  ¿No tienes una cuenta? <a href="/registro" class="font-medium hover:underline text-azul"> Crea una</a>
-               </p> -->
+               <p class="text-sm font-light text-gray-400">
+                  ¿No tienes una cuenta? <a href="/auth/registro" class="font-medium hover:underline text-azul"> Crea una</a>
+               </p>
             </form>
          </div>
       </div>
